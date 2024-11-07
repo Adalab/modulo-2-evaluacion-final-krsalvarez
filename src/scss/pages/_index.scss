@@ -11,16 +11,12 @@
   background-color:rgb(196, 149, 219);
 }
 
-.card {
-  border: 1px solid grey;
-  padding: 10px;
-  border-radius: 5px;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.favorite {
+  color: aqua;
 }
 
-.image {
-  width: 300px;
+.container {
+  display: flex;
+  justify-content: center;
+  
 }
