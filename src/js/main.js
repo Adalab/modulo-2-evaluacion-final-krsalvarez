@@ -10,13 +10,20 @@ let animeList = [];
 // al hacer la búsqueda del anime quiero que lo pinte en el html
 
 function renderAnime() {
+    section.innerHTML = ""; //esto es para vacíar mi section y que no se duplique
+    
+    // aquí se crea un bucle para mostrar todos los animes que tiene el server
     for (const serie of animeList) { 
-        console.log(serie);
+
+    let imageUrl = serie.images.jpg.image_url === "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
+            ? "https://via.placeholder.com/210x295/ffffff/666666/?text=TV"
+            : serie.images.jpg.image_url;
+
     section.innerHTML += `
+    <img src=${imageUrl}>
     <h3>${serie.title}</h3>
     `;
-
-    }
+     }
     }
 
 
