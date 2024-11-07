@@ -1,10 +1,9 @@
-.main__list {
-  padding-left: 2rem;
-  padding-bottom: 20px;
+body {
+  background-color: darkgrey;
+  padding: 20px;
 }
 
 .btn-search {
-  border: none;
   border-radius: 10px;
   color: white;
   padding: 5px 20px;
@@ -17,6 +16,24 @@
 
 .container {
   display: flex;
-  justify-content: center;
-  
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.js-btn {
+  border-radius: 10px;
+  padding: 5px 20px;
+  background-color:rgb(196, 149, 219);
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.js-remove {
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color:rgb(196, 149, 219);
+    color: white;
+    font-weight: bold;
+    margin-top: 5px;
 }
