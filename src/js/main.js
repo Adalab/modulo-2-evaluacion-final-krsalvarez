@@ -4,6 +4,7 @@ const section = document.querySelector(".js-section");
 const favorites = document.querySelector(".js-favorites");
 const inputSearch = document.querySelector(".js-input");
 const buttonSearch = document.querySelector(".btn-search");
+const buttonReset = document.querySelector(".btn-reset");
 
 let animeList = [];
 let favoriteList = [];
@@ -12,7 +13,10 @@ let favoriteList = [];
 
 function renderAnime() {
     let content = "";
-    section.innerHTML = ""; //esto es para vacíar mi section y que no se duplique
+
+    if (animeList.length > 0) {
+
+    // section.innerHTML = ""; //esto es para vacíar mi section y que no se duplique
     content = "<h3>Lista de Animes:</h3><ul class='anime-list'>";
     // aquí se crea un bucle para mostrar todos los animes que tiene el server
     for (const serie of animeList) {
@@ -36,6 +40,7 @@ function renderAnime() {
     `;
     }
     content += `</ul>`;
+}
     section.innerHTML = content;
     const animeSelected = document.querySelectorAll(".js-anime");
     for (const selected of animeSelected) {
@@ -106,6 +111,7 @@ function removeAllFavorites() {
     saveLocalStorage();
 }
 
+
 function handleFavorite(event) {
     const animeClicked = event.currentTarget;
     const idAnimeClicked = parseInt(animeClicked.id);
@@ -146,6 +152,28 @@ buttonSearch.addEventListener("click", function (event) {
     event.preventDefault();
     searchAnime();
 });
+
+
+function resetAnimes() {
+    //vaciamos listas
+    animeList = [];
+    favoriteList = [];
+
+    //vaciamos animes y favoritos
+    section.innerHTML = "";
+    favorites.innerHTML = "";
+
+    //vaciamos localStorage
+    localStorage.removeItem("favorites");
+
+    //el input también vaciamos
+    inputSearch.value = "";
+
+    renderAnime();
+    renderFavorites();
+}
+
+buttonReset.addEventListener("click", resetAnimes);
 
 function loadLocalStorage() {
     const selectedAnimes = JSON.parse(localStorage.getItem("favorites"));
