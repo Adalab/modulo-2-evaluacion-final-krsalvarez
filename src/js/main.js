@@ -128,7 +128,6 @@ function handleFavorite(event) {
         favoriteList.push(animeToFav);
         animeClicked.classList.add("favorite");
     }
-    renderAnime();
     renderFavorites();
     saveLocalStorage();
 }
@@ -179,8 +178,8 @@ function loadLocalStorage() {
     const selectedAnimes = JSON.parse(localStorage.getItem("favorites"));
     if (selectedAnimes !== null) {
         favoriteList = selectedAnimes;
-        renderFavorites();
     }
+    renderFavorites();
 }
 
 loadLocalStorage();
