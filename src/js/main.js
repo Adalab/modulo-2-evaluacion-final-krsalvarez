@@ -16,14 +16,20 @@ function renderAnime() {
     content = "<h3>Lista de Animes:</h3><ul class='anime-list'>";
     // aquí se crea un bucle para mostrar todos los animes que tiene el server
     for (const serie of animeList) {
+        //Revisamos si está en favs
+        const inFavorite = favoriteList.some(fav => fav.mal_id === serie.mal_id);
+        //si está en fav se le añade la clase favorite, sino pues no
+        let favoriteClass = inFavorite ? "favorite" : "";
+
         // una condición ternaria para decirle que si la imagen no tiene se debe poner el placeholder
         let imageUrl =
             serie.images.jpg.image_url ===
                 "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
                 ? "https://via.placeholder.com/210x295/ffffff/666666/?text=TV"
                 : serie.images.jpg.image_url;
+        
         content += `
-    <li class="js-anime" id=${serie.mal_id}>
+    <li class="js-anime ${favoriteClass}" id=${serie.mal_id}>
     <img src=${imageUrl}>
     <h4>${serie.title}</h4>
     </li>
@@ -82,23 +88,41 @@ function removeFavorite(event) {
     favoriteList = favoriteList.filter((fav) => fav.mal_id !== idAnimeRemoved);
     
     renderFavorites(); //actualiza la lista de favoritos
+    renderAnime();
     saveLocalStorage(); //lo guarda en el localStorage
 }
 
 function removeAllFavorites() {
     favoriteList = []; //vacía la lista de favs
-    renderFavorites(); 
+     
+
+    //aqui eliminar clase favorite de los eliminados
+    const removedAnimes = document.querySelectorAll(".js-anime");
+    removedAnimes.forEach((anime) => {
+        anime.classList.remove("favorite");
+    });
+    renderFavorites();
+    renderAnime();
     saveLocalStorage();
 }
 
 function handleFavorite(event) {
     const animeClicked = event.currentTarget;
-    animeClicked.classList.toggle("favorite");
-
     const idAnimeClicked = parseInt(animeClicked.id);
-    const animeToFav = animeList.find((serie) => serie.mal_id === idAnimeClicked);
 
-    favoriteList.push(animeToFav);
+    //verificamos si está en fav
+    const inFavorite = favoriteList.some(fav => fav.mal_id === idAnimeClicked);
+
+    //condicional para que si no está se quite la clase y si está se la ponga
+    if (inFavorite) {
+        favoriteList = favoriteList.filter(fav => fav.mal_id !== idAnimeClicked);
+        animeClicked.classList.remove("favorite");
+    } else {
+        const animeToFav = animeList.find((serie) => serie.mal_id === idAnimeClicked);
+        favoriteList.push(animeToFav);
+        animeClicked.classList.add("favorite");
+    }
+    renderAnime();
     renderFavorites();
     saveLocalStorage();
 }
@@ -110,7 +134,7 @@ function searchAnime() {
         .then((response) => response.json())
         .then((data) => {
             animeList = data.data;
-            renderAnime(animeList);
+            renderAnime();
         });
 }
 
@@ -127,7 +151,7 @@ function loadLocalStorage() {
     const selectedAnimes = JSON.parse(localStorage.getItem("favorites"));
     if (selectedAnimes !== null) {
         favoriteList = selectedAnimes;
-        renderFavorites(selectedAnimes);
+        renderFavorites();
     }
 }
 
