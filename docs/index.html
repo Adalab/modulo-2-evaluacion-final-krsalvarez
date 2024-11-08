@@ -5,25 +5,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Buscador de Anime</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Honk&family=Princess+Sofia&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     
-  <link rel="stylesheet" href="./assets/index-edccf088.css">
+  <link rel="stylesheet" href="./assets/index-b543e03c.css">
 </head>
 
 <body>
-    <header>
-        <h1>Buscador de Series de Anime</h1>
+    <header class="header">
+        <img src="https://giffiles.alphacoders.com/209/209127.gif" alt="chibi bailando" class="gif">
+        <h1 class="honk-title">Buscador de Series de Anime</h1>
+        <img src="https://media.tenor.com/d2j7YdyhtmsAAAAj/shikanoko-dance-shikanoko-meme.gif" alt="chibi bailando" class="gif">
     </header>
 
     <main>
-        <h3></h3>
         <form class="form" action="">
-            <label for="">Buscar:</label>
-            <input class="js-input" type="text" name="search">
+            <label for="" class="label">Buscar:</label>
+            <input class="input js-input" type="text" name="search" autocomplete="off">
             <button class="btn-search" type="submit">Buscar</button>
+            <button class="btn-reset" type="reset">Reset</button>
         </form>
         <div class="container">
         <section class="js-favorites"></section>
-        <section class="js-section"></section>
+        <section class="js-section animes"></section>
         </div>
     </main>
     <script src="./js/main.js"></script>
